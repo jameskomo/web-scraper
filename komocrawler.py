@@ -14,7 +14,10 @@ video_source=article.find('iframe', class_='youtube-player')
 vid_src=article.find('iframe', class_='youtube-player')['src']
 vid_id=vid_src.split('/')[4]
 vid_id=vid_id.split('?')[0]
-yt_link=f'https://youtube.com/watch?v={vid_id}'
+try:
+    yt_link=f'https://youtube.com/watch?v={vid_id}'
+except ex as e:
+    yt_link=None
 # print(yt_link)
 
 # ITERATING THROUGH ALL CONTENT
@@ -25,8 +28,12 @@ for article in soup.find_all('article'):
     vid_src=article.find('iframe', class_='youtube-player')['src']
     vid_id=vid_src.split('/')[4]
     vid_id=vid_id.split('?')[0]
-    yt_link=f'https://youtube.com/watch?v={vid_id}'
+    try:
+        yt_link=f'https://youtube.com/watch?v={vid_id}'
+    except ex as e:
+        yt_link=None
     print(yt_link)
+    # print()
 
 
 # SCRAPING HTML FILE
