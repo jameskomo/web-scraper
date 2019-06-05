@@ -8,8 +8,8 @@ soup=BeautifulSoup(source, 'lxml')
 
 # WRITING TO CSV
 csv_file=open('komo_scrape.csv', 'w')
-csv_writer=csv.writer(csv_file)
-csv_writer=writerow['headline', 'summary', 'video_link']
+csv_writer = csv.writer(csv_file)
+csv_writer.writerow(['headline', 'summary', 'video_link'])
 
 article=soup.find('article')
 headline=article.h2.a.text
@@ -40,9 +40,9 @@ for article in soup.find_all('article'):
     except ex as e:
         yt_link=None
     # print(yt_link)
-    print()
-    csv_writer=writerow['headline', 'summary', 'video_link']
-    csv_file.close()
+    # print()
+    csv_writer.writerow([headline, summary, yt_link])
+csv_file.close()
 
 
 # SCRAPING HTML FILE
