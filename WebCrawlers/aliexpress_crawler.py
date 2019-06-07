@@ -1,27 +1,31 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import time
+import lxml
 
-# SCRAPING JUMIA WEBSITE
-source=requests.get('https://www.masoko.com/super-deals').text
-soup=BeautifulSoup(source, 'lxml')
-# print(source)
+# SETTING WEBSITE SOURCE
+url='https://flashdeals.aliexpress.com/en.htm'
 
-# WRITING TO CSV
-# csv_file=open('jumiascrape.csv', 'w')
+# MIMIC BROWSER VISIT TO AVOID BOT RESPONSE BUT BROWSER LIKE RESPONSE
+headers={'User-Agent': 'Mozilla/5.0'}
+
+# GETTING RESPONSE OBJECT
+page=requests.get(url, headers=headers)
+
+# CREATING SYNTAX TREE TO HELP FIND SPECIFIC TAGES BY SEARCHING FOR ANY COMBINATION OF CLASSES, IDS OR TAG NAMES
+soup=BeautifulSoup(page.text, 'lxml')
+
+
+
+# # WRITING TO CSV
+# csv_file=open('komo_scrape.csv', 'w')
 # csv_writer = csv.writer(csv_file)
 # csv_writer.writerow(['headline', 'summary', 'video_link'])
 
-offers=soup.find('div', class_='products wrapper grid products-grid')
-item_name=offers.find('div', class_='product details product-item-details').a.text
-price=offers.find('span', class_='price').text
-price=offers.find('span', class_='price').text
-old_price=offers.find('span', class_='old-price').text
-item_image=offers.find('div', class_='product-item-info').img['src']
-print(item_image)
-# new_laptops=soup.find('div', class_='products -mabaya')
-# # laptop_title=new_laptops.h2.text
-# print(new_laptops.prettify())
+deal=soup.find_all('div', class_='item-details')
+print(deal)
+# headline=article.h2.a.text
 # summary=article.find('div', class_="entry-content").p.text
 # # print(summary)
 
@@ -54,13 +58,5 @@ print(item_image)
 # csv_file.close()
 
 
-# # SCRAPING HTML FILE
-# # with open('simple.html') as html_file:
-# #     soup=BeautifulSoup(html_file, 'lxml')
-   
-# #     for article in soup.find_all('div', class_='article'):
-# #         headline=article.h2.a.text
-# #         print(headline)
-# #         summary=article.p.text
-# #         print(summary)
+
   

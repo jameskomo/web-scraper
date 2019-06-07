@@ -5,6 +5,7 @@ import csv
 # SCRAPING WEBSITES
 source=requests.get('http://coreyms.com').text
 soup=BeautifulSoup(source, 'lxml')
+print(soup.prettify())
 
 # WRITING TO CSV
 csv_file=open('komo_scrape.csv', 'w')
