@@ -79,6 +79,22 @@ for post in posts:
     csv_writer.writerow([counter, title, author, likes, comments])
 csv_file.close()
 
+# WRITING TO DB
+
+# Make the connection to PostgreSQL
+import psycopg2
+conn = psycopg2.connect(database='reddit_crawler',
+                        user='komo', password='komo', port=5432)
+cursor = conn.cursor()
+for post in posts:
+    query = "INSERT INTO reddit (counter, title, author, likes, comments) VALUES (%s, %s, %s, %s, %s);"
+    data = (counter, title, author, likes, comments)
+
+    cursor.execute(query, data)
+
+
+
+
 # # TOGGLING BETWEEN PAGES
 # counter = 1
 
